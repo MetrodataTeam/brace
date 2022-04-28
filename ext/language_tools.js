@@ -1686,7 +1686,7 @@ var FilteredList = function(array, filterText) {
         });
         var prev = null;
         matches = matches.filter(function(item){
-            var caption = item.snippet || item.caption || item.value;
+            var caption = item.filter || item.snippet || item.caption || item.value;
             if (caption === prev) return false;
             prev = caption;
             return true;
@@ -1699,7 +1699,7 @@ var FilteredList = function(array, filterText) {
         var upper = needle.toUpperCase();
         var lower = needle.toLowerCase();
         loop: for (var i = 0, item; item = items[i]; i++) {
-            var caption = item.value || item.caption || item.snippet;
+            var caption = item.filter || item.value || item.caption || item.snippet;
             if (!caption) continue;
             var lastIndex = -1;
             var matchMask = 0;
@@ -1899,7 +1899,8 @@ var doLiveAutocomplete = function(e) {
     }
     else if (e.command.name === "insertstring") {
         var prefix = util.getCompletionPrefix(editor);
-        if (prefix && !hasCompleter) {
+        // if (prefix && !hasCompleter) {
+        if (prefix){
             if (!editor.completer) {
                 editor.completer = new Autocomplete();
             }
